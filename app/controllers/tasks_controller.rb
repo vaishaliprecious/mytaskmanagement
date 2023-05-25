@@ -1,12 +1,15 @@
 class TasksController < ApplicationController
-     def index
+    def index
 
+    end
+     
+    def show
+         @task= Task.where('user_id=?',current_user.id)
+         @cat=params[:category]
      end
-     def show
-       @task= Task.where('user_id=?',current_user.id)
-       @cat=params[:category]
-     end
+     
      def new
+      
        @task = Task.new 
      end
      def create

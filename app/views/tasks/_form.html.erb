@@ -1,0 +1,49 @@
+<%if user_signed_in? %>
+       <div> Welcome <% current_user.email %></div>
+       <%= button_to "sign out" , destroy_user_session_path, method: :delete %>
+       <h1><%= link_to('back','/tasks/all') %></h1>
+       <%= form_with model: @task  do |form|%>
+        <table border = '1',align ='center'>   
+          <td>
+              <tr>
+                    <%= form.lable :Title %> 
+                    <%= form.text_field_tag :title %><br><br>
+              </tr>
+            
+              <tr>
+                   <%= form.lable :Descreption%> 
+                   <%= form.text_field_tag :descreption %><br><br>
+              </tr>
+
+              <tr>
+                   <%= form.lable :status%> 
+                     <% if params[:action]=="new" %>
+                       <%= form.select :status,["In_completed"] %><br><br>
+                     <% else%>   
+                       <%= form.select :status,["In_completed"] %><br><br>
+                     <% end%>  
+              </tr>
+            
+              <tr>
+                  <%= form.lable :Category%> 
+                  <%= form.select :category,Task::CATEGORY %><br><br>
+             </tr>
+
+              <tr>
+                  <%= form.lable :User_Id%> 
+                  <%= form.select :user_id,[current_user.id] %><br><br>
+
+              </tr>
+              <tr>
+                 <%= form.submit "create"><br><br>
+              </tr>          
+             
+            </td>          
+          
+       </table>
+       <% end%>
+<%else%>
+      <%= button_to "sign in",new_user_session_path %> 
+
+<% end %>
+               

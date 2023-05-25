@@ -1,0 +1,31 @@
+<% stylesheets_link_tag "design" %>
+<% if user_signed_in? %>
+      <div> Welcome <% current_user.email %></div>
+      <%= button_to "sign out" , destroy_user_session_path, method: :delete %>
+      <h1><%=  link_to('back','/tasks') %></h1>
+      <h2><%= link_to("ALL","/task/all") %></h2>
+       <h1>Welcome to show page </h1>
+       <%if @cat == nil %>
+       <h1> please select any option </h1>
+       <h4><% link _to('Go_to_index','/tasks')%><h4>
+<% else%>
+     <% @tasks.each do |x| %>
+           <% @cat.each do |i|%>
+              <% if i == "0"%>
+                  <% next %>
+               <% elsif(i==x.category and (x.status=='completed'))%>
+                <p>Title :-<%= x.title %></p>
+                <p>Descreption :-<%= x.descreption %></p>
+                <p>Status :-<% x.status %></p>
+                <p>Edit :-<% link_to("Edit",edit_task_path(x.id)) %></p> 
+                <p>Delete :-<% link_to("destroy",task_path(x)), 
+                data: {turbo_method: :delete} %></p>
+               <%end%>
+           <%end%>
+     <%end %>
+<%end%>     
+<%else%>
+      <%= button_to "sign in",new_user_session_path %> 
+
+<% end %>
+               
