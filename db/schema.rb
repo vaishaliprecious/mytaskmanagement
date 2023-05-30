@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_24_073001) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_30_105020) do
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
     t.text "body"
@@ -88,7 +88,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_24_073001) do
   create_table "tasks", force: :cascade do |t|
     t.string "title"
     t.text "description"
-    t.string "status"
+    t.string "status", default: "In_complete"
     t.string "category"
     t.integer "user_id"
     t.integer "category_id"
@@ -115,6 +115,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_24_073001) do
     t.string "unconfirmed_email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "firstname"
+    t.string "lastname"
+    t.integer "user_type"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

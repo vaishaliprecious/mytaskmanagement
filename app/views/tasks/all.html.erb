@@ -1,31 +1,35 @@
 <%if user_signed_in? %>
-       <div> Welcome <% current_user.email %></div>
-       <%= button_to "sign out" , destroy_user_session_path, method: :delete %>
-       <h1><% link_to('back','/tasks') %></h1>
-       <h2><% link_to('show',task_show_path	) %></h2>
-      <table border = '1',align ='center'>   
-          <tr>
-             <th>Title</th>
-             <th>Descreption</th>
-             <th>Category</th>
-             <th>Edit</th>
-             <th>Delete</th>
-          </tr>          
-          <% @tasks.each do |x| %>
-                <%if(x.status =="In_completed" and  (current_user.id==x.user_id))%>
-                    <tr>  
-                        <td><% x.title %></td>
-                        <td><% x.descreption %></td>
-                        <td><% x.categoey %></td>
-                        <td><% link_to("Edit",edit_task_path(x.id)) %></td> 
-                        <td><% link_to "Destroy","/task_path(#{x.id})", 
-                        data: {turbo_method: :delete} %></td>
-                    </tr>
-                <%end%>
-          <%end %>
-     </table>
+          <div> Welcome <%= current_user.email %></div>
+          <%= button_to "sign out" , destroy_user_session_path, method: :delete %>
+           <h1><%= link_to('back','/tasks') %></h1>
+          <h2><%= link_to('Show','/tasks/show') %></h2>
+       
+         <table border = '1',align ='center'>   
+                  <tr>
+                      <th>Image</th>
+                      <th>Title</th>
+                      <th>Description</th>
+                       <th>Category</th>
+                       <th>Edit</th>
+                       <th>Delete</th>
+                  </tr>          
+                 <% @tasks.each do |x| %>
+                       <%if(x.status =="In_completed" and  (current_user.id==x.user_id))%>
+                            <tr> 
+                                <td><%=image_tag x.image, size:"200"%></td>
+                                <td><%= x.title %></td>
+                                <td><%= x.description %></td>
+                                <td><%= x.category.category_name %></td>
+                                <td><%= link_to("Edit",edit_task_path(x.id)) %></td> 
+                                <% if can? :delete, Task %>
+                                      <td><%= link_to("Destroy",task_path(x), 
+                                           data: {turbo_method: :delete,turbo_confirm: "Are you sure?" }) %></td>
+                                 <% end %>          
+                           </tr> 
+                      <%end%>
+                <%end %>
+         </table>
 <%else%>
       <%= button_to "sign in",new_user_session_path %> 
-
 <% end %>
                

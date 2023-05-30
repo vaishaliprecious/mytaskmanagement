@@ -3,7 +3,7 @@ class CreateTasks < ActiveRecord::Migration[7.0]
     create_table :tasks do |t|
       t.string :title
       t.text :description
-      t.string :status
+      t.string :status,default: "In_complete"
       t.string :category
       t.belongs_to :user
       t.belongs_to :category

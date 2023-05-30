@@ -5,7 +5,7 @@ ActiveAdmin.register Task do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  # permit_params :title, :description, :status, :category, :user_id, :category_id
+  permit_params :title, :description, :status, :category, :user_id, :category_id
   #
   # or
   #
