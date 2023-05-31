@@ -2,24 +2,23 @@
         <div> Welcome <% current_user.email %></div>
         <%= button_to "sign out" , destroy_user_session_path, method: :delete %>
         <h1><%=  link_to('back','/tasks') %></h1>
-        <h2><%= link_to("ALL","/tasks/all") %></h2>
         <h1>Welcome to show page </h1>
-        <%if @cat == nil %>
-           <h1> please select any option </h1>
-            <h4><%= link_to('Go _To_index','/tasks')%> </h4>
-         <% else%>
-            <% @task.each do |x|%>     
-              <% @cat.each do |i| %>
-                <% if i=="0" %>
+        <%if @cat == [""] %>
+           <h2> Please Select Any Option </h2>
+         <% else %>
+            <% @task.each do |x|%> 
+              <% @cat.each do |category| %>
+                <% if category=="" %>
                     <% next %>  
-                <% elsif (i==x.category and (x.status=="Completed")) %>
+                <% elsif (category=="#{ x.category_id }" && (x.status=="Completed")) %>
                     <p>Title:- <%= x.title %></p>
                     <p>Description:- <%= x.description %></p>
                     <p>Status:- <%= x.status %> </p>
                     <p>Edit:- <%= link_to("Edit",edit_task_path(x.id)) %></p>
-                    <p>Delete:-<%= link_to("Destroy" ,tasks_path(x), 
-                                  data: {turbo_method: :delete}) %>
-                    </p>
+                     <% if can? :delete, Task %>
+                    <p>Delete:-<%= link_to("Destroy",task_path(x), 
+                                           data: {turbo_method: :delete,turbo_confirm: "Are you sure?" }) %>
+                    </p><%end%>
                     <p>___________XXXX___________</p>
                 <% end %>
             <% end %>

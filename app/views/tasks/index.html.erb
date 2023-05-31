@@ -6,11 +6,13 @@
    <div style="text-align:center;">
            <h1><%= link_to "NEW",new_task_path %></h1>
            <h2><%= link_to("All","/tasks/all") %></h2>
-        <%= form_with url: '/tasks/show', method: :get , model: @task do |form| %>
+        <%= form_with url: '/tasks/show', method: :get, model: @task do |form| %>
                  <table>
+                  
+
                    <tr>
-                        <%= form.collection_check_boxes :category_id, Category.order(:category_name), :id, :category_name %>
-                   </tr>  
+                          <%= form.collection_check_boxes :category_id, Category.order(:category_name), :id, :category_name %> 
+                   </tr>
                    <tr>  
                          <th>
                                <center> <%= form.submit "Done" %>
