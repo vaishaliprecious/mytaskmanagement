@@ -8,6 +8,6 @@ class TaskMailer < ApplicationMailer
 
   def update_mail(task)
     @task = task
-    mail(to: AdminUser.pluck(:email), subject: 'task is updated in taskmanagement')
+    mail(to: AdminUser.pluck(:email), subject: 'task is completed in taskmanagement')
   end
 end

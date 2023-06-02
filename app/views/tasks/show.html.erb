@@ -1,31 +1,14 @@
 <% if user_signed_in? %>
-        <div> Welcome <% current_user.email %></div>
-        <%= button_to "sign out" , destroy_user_session_path, method: :delete %>
-        <h1><%=  link_to('back','/tasks') %></h1>
-        <h1>Welcome to show page </h1>
-        <%if @cat == [""] %>
-           <h2> Please Select Any Option </h2>
-         <% else %>
-            <% @task.each do |x|%> 
-              <% @cat.each do |category| %>
-                <% if category=="" %>
-                    <% next %>  
-                <% elsif (category=="#{ x.category_id }" && (x.status=="Completed")) %>
-                    <p>Title:- <%= x.title %></p>
-                    <p>Description:- <%= x.description %></p>
-                    <p>Status:- <%= x.status %> </p>
-                    <p>Edit:- <%= link_to("Edit",edit_task_path(x.id)) %></p>
-                     <% if can? :delete, Task %>
-                    <p>Delete:-<%= link_to("Destroy",task_path(x), 
-                                           data: {turbo_method: :delete,turbo_confirm: "Are you sure?" }) %>
-                    </p><%end%>
-                    <p>___________XXXX___________</p>
-                <% end %>
-            <% end %>
-        <%end %>
-<%end%>  
-<%else%>
-      <%= button_to "sign in",new_user_session_path %> 
-
-<% end %>
-               
+	<div> Welcome <%= current_user.email %></div>
+	<%= button_to "sign out" , destroy_user_session_path, method: :delete %>
+	<h1><%= link_to('Back',"/tasks") %></h1>
+  <%= form_with  model: @task do |form| %>
+   <% if @task.status=='Completed'%>
+    <%= form.hidden_field :approve, value: :approve%>
+    <%= form.submit "Approve" %>
+   <%else %>
+    <%= form.select :assigned_task, User.pluck(:firstname, :id) %><br><br>
+    <%= form.submit "Assign" %>
+   <%end%>
+  <%end%>
+<%end%>

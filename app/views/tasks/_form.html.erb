@@ -1,53 +1,34 @@
 <% if user_signed_in? %>
-         <div> Welcome <%= current_user.email %></div>
-          <%= button_to "sign out" , destroy_user_session_path, method: :delete %>
-          <h1><%= link_to('Back',"/tasks/all") %></h1>
-        <%= form_with model: @task  do |form|%>
-          <table border = '1',align ='center'>   
-               <td>
-                     <tr>
-                               <%= form.label :Title %> 
-                               <%= form.text_field :title %><br><br> 
-                    </tr>
-                    
-                    <tr>
-                               <%= form.label :description %>
-                               <%= form.text_field :description %><br><br>
-                   </tr>
-              
-                    <tr>
-                               <%= form.label :image %>
-                               <%= form.file_field :image %><br><br>
-                   </tr>
-              
-                    <tr>
-                               <%= form.label :Status %>
-                                <% if params[:action]=="new" %>
-                                         <%= form.select :status,["In_completed"] %><br><br>
-                                <% else%>   
-                                         <%= form.select :status,["In_completed","Completed"] %><br><br>
-                                <% end%>  
-                   </tr>
-              
-                    <tr>
-                               <%= form.label :Category_Name %><br>
-                               
-                                <%= form.collection_select(:category_id, Category.all, :id, :category_name) %>
-                    </tr>
-              
-            
-                    <tr>
-                                <%= form.label :User_Id %>
-                                <%= form.select :user_id,[current_user.id] %><br><br>
-                    </tr>
-              
-                     <tr>
-                                 <%= form.submit "create" %><br><br>
-                    </tr>          
-              </td>          
-         </table>
-       <% end%>
+	<div> Welcome <%= current_user.email %></div>
+	<%= button_to "sign out" , destroy_user_session_path, method: :delete %>
+	<h1><%= link_to('Back',"/tasks") %></h1>
+	<%= form_with model: @task  do |form|%>
+				
+		<%= form.label :Title %> 
+		<%= form.text_field :title %><br><br> 
+											
+		<%= form.label :description %>
+		<%= form.text_field :description %><br><br>
+							
+		<%= form.label :image %>
+		<%= form.file_field :image %><br><br>
+
+		<%= form.label :Status %>
+		<%unless  params[:action]=="new" %>
+			<%= form.select :status,["In_completed","Completed"] %><br><br>
+		<% end%>  
+
+		<%= form.label :Category_Name %><br>
+		<%= form.collection_select(:category_id, Category.all, :id, :category_name) %>
+        
+    
+		<% if params[:action]=="new" %>
+         <%= form.submit "Create" %><br><br>
+		<% else%>   
+         <%= form.submit "Update" %><br><br>
+		<%end%>																		
+	<% end%>
 <%else%>
-      <%= button_to "sign in",new_user_session_path %> 
+  <%= button_to "sign in",new_user_session_path %> 
 <% end %>
                

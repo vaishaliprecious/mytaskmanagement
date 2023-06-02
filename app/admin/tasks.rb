@@ -6,7 +6,7 @@ ActiveAdmin.register Task do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  permit_params :title, :description, :status, :category, :user_id, :category_id
+  permit_params :title, :description, :status, :category, :user_id, :category_id, :approve
   #
   # or
   #
@@ -14,5 +14,15 @@ ActiveAdmin.register Task do
   #   permitted = [:title, :description, :status, :category, :user_id, :category_id]
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
   #   permitted
+  # end
+  # index do
+  #   id_column
+  #   column :title
+  #   column :description
+  #   column :status |object| do
+  #     byebug
+  #   end
+  #   column :
+  #   actions
   # end
 end
