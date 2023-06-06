@@ -1,0 +1,3 @@
+fist_job:
+  cron: "*/3 * * * *"
+  class: "TaskMailerJob"

@@ -87,3 +87,7 @@ gem 'activeadmin'
 gem 'cancancan'
 gem 'letter_opener', group: :development
 gem 'sassc-rails'
+gem 'sidekiq', '~> 7.1', '>= 7.1.1'
+gem 'sidekiq_alive'
+gem 'sidekiq-cron'
+gem 'rspec-rails'

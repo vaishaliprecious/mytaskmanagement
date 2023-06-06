@@ -5,7 +5,7 @@ class TasksController < ApplicationController
   before_action :set_task, only: %i[ edit show update destroy]
 
   def index
-    @tasks = Task.where(assigned_task: nil).or(Task.where(status: "Completed")) if current_user.admin?
+    @tasks = Task.where(assigned_task: nil).or(Task.where(status: "Complete")) if current_user.admin?
     @tasks = Task.where(assigned_task: current_user.id) unless current_user.admin?
   end
 
@@ -19,10 +19,11 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(task_params)
-    if @task.save!
+    if @task.save
       redirect_to tasks_path
+      flash[:notice] = "created"
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -31,11 +32,11 @@ class TasksController < ApplicationController
 
   def update
     if  @task.update(task_params)
-      @task.update(approve: :not_approve) if  @task.status == 'Completed' && @task.not_approve?
+      @task.update(approve: :not_approve) if  @task.status == 'Completed' && !@task.approve?
+      redirect_to '/tasks'
     else 
-      return
+      render :edit, status: :unprocessable_entity
     end
-    redirect_to '/tasks'
   end
 
   def destroy

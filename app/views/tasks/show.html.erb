@@ -3,7 +3,7 @@
 	<%= button_to "sign out" , destroy_user_session_path, method: :delete %>
 	<h1><%= link_to('Back',"/tasks") %></h1>
   <%= form_with  model: @task do |form| %>
-   <% if @task.status=='Completed'%>
+   <% if @task.status=='Complete'%>
     <%= form.hidden_field :approve, value: :approve%>
     <%= form.submit "Approve" %>
    <%else %>

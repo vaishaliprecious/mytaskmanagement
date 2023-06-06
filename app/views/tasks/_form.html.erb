@@ -2,31 +2,38 @@
 	<div> Welcome <%= current_user.email %></div>
 	<%= button_to "sign out" , destroy_user_session_path, method: :delete %>
 	<h1><%= link_to('Back',"/tasks") %></h1>
-	<%= form_with model: @task  do |form|%>
+	<%= form_with model: task  do |form|%>
 				
-		<%= form.label :Title %> 
-		<%= form.text_field :title %><br><br> 
-											
+		<%= form.label :title %> 
+		<%= form.text_field :title %><br>
+		<% task.errors.full_messages_for(:title).each do |message|%>
+		  <div><%= message %></div>
+		<%end%>		
+
 		<%= form.label :description %>
 		<%= form.text_field :description %><br><br>
+		<% task.errors.full_messages_for(:description).each do |message|%>
+		  <div><%= message %></div>
+		<%end%>		
 							
 		<%= form.label :image %>
 		<%= form.file_field :image %><br><br>
+		<% task.errors.full_messages_for(:image).each do |message|%>
+		  <div><%= message %></div>
+		<%end%>		
 
 		<%= form.label :Status %>
 		<%unless  params[:action]=="new" %>
 			<%= form.select :status,["In_completed","Completed"] %><br><br>
-		<% end%>  
+			<% task.errors.full_messages_for(:status).each do |message|%>
+		  <div><%= message %></div>
+		<%end%>		
+		<% end%>
 
-		<%= form.label :Category_Name %><br>
-		<%= form.collection_select(:category_id, Category.all, :id, :category_name) %>
+		<%= form.label :name %><br>
+		<%= form.collection_select(:category_id, Category.all, :id, :name) %>
         
-    
-		<% if params[:action]=="new" %>
-         <%= form.submit "Create" %><br><br>
-		<% else%>   
-         <%= form.submit "Update" %><br><br>
-		<%end%>																		
+         <%= form.submit %><br><br>																
 	<% end%>
 <%else%>
   <%= button_to "sign in",new_user_session_path %> 

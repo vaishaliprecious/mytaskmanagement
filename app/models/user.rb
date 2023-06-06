@@ -8,11 +8,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable, :confirmable, :trackable
   
   validates :email, :firstname, :lastname, presence: true
-  validates :email, format: { with: /\A(.+)@(.+)\z/,
-                              message: 'only allows letters' }
   validates :password, length: { in: 6..20 }
-  validates :password, numericality: true
- 
   enum :user_type, { admin: 0, user: 1 }
 
   after_create :send_welcome_mail
