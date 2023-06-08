@@ -5,11 +5,10 @@ class Ability
 
   def initialize(user)
     # Define abilities for the user here. For example:
-  if user.admin?
+    if user.admin?
       can :manage, :all
-
-    else
-      can :read, Task 
+    elsif user.user?
+      can :read, Task
       can :update, Task
       cannot :create, Task
       cannot :destroy, Task

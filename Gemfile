@@ -65,6 +65,10 @@ group :development do
 
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
+  gem 'database_cleaner'
+  gem 'faker'
+  gem 'rspec-rails'
+  gem 'shoulda-matchers'
 end
 # ...
 
@@ -80,6 +84,7 @@ gem 'devise'
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem 'capybara'
+  gem 'factory_bot_rails'
   gem 'selenium-webdriver'
   gem 'webdrivers'
 end
@@ -90,4 +95,5 @@ gem 'sassc-rails'
 gem 'sidekiq', '~> 7.1', '>= 7.1.1'
 gem 'sidekiq_alive'
 gem 'sidekiq-cron'
-gem 'rspec-rails'
+
+gem 'factory_bot', '~> 6.2'

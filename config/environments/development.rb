@@ -40,7 +40,6 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :letter_opener
   config.action_mailer.perform_deliveries = true
   # config.active_job.queue_adapter = :sidekiq
-  
 
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false

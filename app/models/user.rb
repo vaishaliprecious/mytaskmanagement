@@ -6,7 +6,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :confirmable, :trackable
-  
+
   validates :email, :firstname, :lastname, presence: true
   validates :password, length: { in: 6..20 }
   enum :user_type, { admin: 0, user: 1 }

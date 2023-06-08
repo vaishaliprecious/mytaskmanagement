@@ -34,7 +34,7 @@
         <td><%= x.approve? ? "" : link_to("Show", x) %></td>
        <% end %>
        <td><%= x.approve? ? "Approve" : x.status%></td>
-      <% unless current_user.admin?%>
+       <% unless current_user.admin?%>
        <td><%= x.status == "Complete" ?  "" : button_to("Complete", x, method: :put , params: {task:{status: "Complete"}}) %></td>
        <%end%>
    <%end%>

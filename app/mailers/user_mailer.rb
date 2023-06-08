@@ -3,6 +3,6 @@
 class UserMailer < ApplicationMailer
   def welcome_mail(user)
     @user = user
-    mail(to: AdminUser.pluck(:email), subject: 'New user register to taskmanagement')
+    mail(to: AdminUser.pluck(:email), subject: 'New user register to taskmanagement') if AdminUser.count.positive?
   end
 end

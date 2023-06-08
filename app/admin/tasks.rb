@@ -19,20 +19,15 @@ ActiveAdmin.register Task do
     id_column
     column :title
     column :description
-    column "Status" do |object|
-      object.status
+    column 'Status', &:status
+    column 'Category' do |object|
+      object.category.name
     end
-    column "Category" do |object|
-      object.category.name   end
-    column "status" do |object|
-      object.status
-    end
-    column "Assigned Task" do |object|
+    column 'status', &:status
+    column 'Assigned Task' do |object|
       User.find_by(id: object.assigned_task)&.firstname
     end
-    column "Approve" do |object|
-      object.approve
-    end
+    column 'Approve', &:approve
     actions
   end
 end
