@@ -7,6 +7,7 @@ class Ability
     # Define abilities for the user here. For example:
     if user.admin?
       can :manage, :all
+      cannot :update , Task
     elsif user.user?
       can :read, Task
       can :update, Task

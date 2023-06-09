@@ -41,19 +41,20 @@ describe "POST tasks_path" do
      it "when task is created" do
       post tasks_path
       expect(response).to  have_http_status(302)  
-      end
+     end
      it "when task is not created" do
       get new_task_path
       expect(response).to  have_http_status(302)
      end
-    end
   end
+end
   
     describe "GET /tasks/:id/edit" do
       context "when user is authenticated" do 
         before(:each) do 
           category=FactoryBot.create(:category)
           user = FactoryBot.create(:user)
+          sign_in user
           @task= FactoryBot.create(:task,user:user,category: category)
         end
        it "when task is edit" do
@@ -67,7 +68,6 @@ describe "POST tasks_path" do
         before(:each) do 
           category=FactoryBot.create(:category)
           user = FactoryBot.create(:user)
-          byebug
           sign_in user
           @task= FactoryBot.create(:task,user:user,category: category)
         end
@@ -77,20 +77,22 @@ describe "POST tasks_path" do
         end
         it "when task is not updated" do
           get edit_task_path(@task)
-          # byebug
-          expect(response).to  have_http_status(200)
+          expect(response).to  have_http_status(302)
         end
       end
     end   
     describe "DELETE /tasks/:id" do
       context "when user is authenticated" do 
         before(:each) do 
+          category=FactoryBot.create(:category)
           user = FactoryBot.create(:user)
+          sign_in user
+          @task= FactoryBot.create(:task,user:user,category: category)
         end
-       it "when task is updated" do
-        get tasks_path
-        expect(response).to  have_http_status(302)
-       end
+        it "when task is deleted" do
+         get tasks_path
+         expect(response).to  have_http_status(302)
+        end
       end
     end 
 end
