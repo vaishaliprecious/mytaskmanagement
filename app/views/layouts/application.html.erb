@@ -13,6 +13,21 @@
   <body>
   <p class="notice"><%= notice %></p> 
   <p class="alert"><%= alert %></p>
+  <%
+=begin%>
+ <% if user_signed_in? %>
+    <%= button_to 'Sign Out', destroy_user_session_path, method: :delete %> |
+  <% elsif !member_signed_in? %>
+    <%= link_to "Sign In", new_user_session_path %> |
+  <% end %>
+
+  <% if member_signed_in? %>
+    <%= button_to 'Sign Out as Member', destroy_member_session_path, method: :delete %> |
+  <% elsif !user_signed_in? %>
+    <%= link_to "Sign In as Member", new_member_session_path %> |
+   <% end %> 
+<%
+=end%>
    <%= yield %>
   </body>
 </html>

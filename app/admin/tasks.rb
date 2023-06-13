@@ -15,19 +15,33 @@ ActiveAdmin.register Task do
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
   #   permitted
   # end
-  index do
-    id_column
-    column :title
-    column :description
-    column 'Status', &:status
-    column 'Category' do |object|
-      object.category.name
+  # index do
+  #   id_column
+  #   column :title
+  #   column :description
+  #   column 'Status', &:status
+  #   column 'Category' do |object|
+  #     object.category.name
+  #   end
+  #   column 'status', &:status
+  #   column 'Assigned Task' do |object|
+  #     User.find_by(id: object.assigned_task)&.firstname
+  #   end
+  #   column 'Approve', &:approve
+  #   actions
+  # end
+
+  form do |f|
+    f.inputs do
+      f.input :member, collection: Member.all.map { |t| [t.email ,t.id] }
+      f.input :category
+      f.input :title
+      f.input :description
+      f.input :status
+      f.input :assigned_task, as: :select, collection: User.all.collect {|user| [user.email, user.id] }
+      f.input :approve
     end
-    column 'status', &:status
-    column 'Assigned Task' do |object|
-      User.find_by(id: object.assigned_task)&.firstname
-    end
-    column 'Approve', &:approve
-    actions
+    f.actions
   end
+
 end

@@ -1,6 +1,5 @@
-<% if user_signed_in? %>
-	<div> Welcome <%= current_user.email %></div>
-	<%= button_to "sign out" , destroy_user_session_path, method: :delete %>
+<div> Welcome <%= current_member.email %></div>
+	<%= button_to "sign out" , destroy_member_session_path, method: :delete %>
 	<h1><%= link_to('Back',"/tasks") %></h1>
 	<%= form_with model: task  do |form|%>
 				
@@ -27,7 +26,7 @@
 			<%= form.select :status,["In_completed","Completed"] %><br><br>
 			<% task.errors.full_messages_for(:status).each do |message|%>
 		  <div><%= message %></div>
-		<%end%>		
+		<%end%>
 		<% end%>
 
 		<%= form.label :name %><br>
@@ -35,7 +34,4 @@
         
          <%= form.submit %><br><br>																
 	<% end%>
-<%else%>
-  <%= button_to "sign in",new_user_session_path %> 
-<% end %>
                

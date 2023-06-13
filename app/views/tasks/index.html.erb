@@ -1,13 +1,20 @@
-<% if user_signed_in? %>
-      
+<% if current_user %>
   <div> Welcome <%=current_user.email %></div>
   <%= button_to "sign out" , destroy_user_session_path, method: :delete %>  
+  <%elsif%>
+  <div> Welcome <%=current_member.email %></div>
+  <%= button_to "sign out" , destroy_member_session_path, method: :delete %> 
+    
+  <%end%>
   <div style="text-align:center;">
-  <% if can? :delete, Task %>
-   <h1><%= link_to "NEW",new_task_path %></h1>
-  <%end%> 
+  <% if current_member%>
+  <h1><%= link_to "create user" , new_user_path%></h1>
+  <% end%>
+  <% if can? :manage, Task %>
+  <h1><%= link_to "NEW", new_task_path %></h1>
+  <%end%>
   <%= image_tag "t1.jpeg", size: "100*2" %>
-  <table border = '1',align ='center'>   
+  <table border = '1',align ='center'>
    <tr>
       <th>Image</th>
       <th>Title</th>
@@ -18,10 +25,13 @@
       <th>show</th>
       <% end %>
       <th>status</th>
-      <% unless current_user.admin?%>
-      <th>Action</th>
+      <% if current_member%>
+       <th>Assign task to user</th>
       <%end%>
-   </tr>          
+      <% if current_user %>
+       <th>action</th>
+      <%end%>
+   </tr>        
    <% @tasks.each do |x| %>
       <tr> 
        <td><%=image_tag x.image, size:"200"%></td>
@@ -34,10 +44,11 @@
         <td><%= x.approve? ? "" : link_to("Show", x) %></td>
        <% end %>
        <td><%= x.approve? ? "Approve" : x.status%></td>
-       <% unless current_user.admin?%>
-       <td><%= x.status == "Complete" ?  "" : button_to("Complete", x, method: :put , params: {task:{status: "Complete"}}) %></td>
+       <% if current_user %>
+       <td><%= button_to "Complete", task_path(x), method: :put, params: {task:{status: "Complete"}}%></td>
        <%end%>
+       <% if current_member%>
+       <td><%= x.assigned_task%></td>
+       <%end%>
+      </tr> 
    <%end%>
-<%else%>
- <%= image_tag "login.jpg", size: "80*1" %>
-<% end %>

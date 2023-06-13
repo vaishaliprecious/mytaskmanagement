@@ -2,15 +2,23 @@
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
+ <%begin%>
 
   <div class="field">
     <%= f.label :firstname %><br />
     <%= f.text_field :firstname, autofocus: true, autocomplete: "firstname" %>
   </div>
+
     <div class="field">
     <%= f.label :lastname %><br />
     <%= f.text_field :lastname, autofocus: true, autocomplete: "lastname" %>
   </div>
+
+  <div class="field">
+    <%= f.hidden_field :member_id, value: current_member.id%>
+  </div>
+<%rescue%>
+<%end%>
   
      <div class="field">
     <%= f.label :email %><br />

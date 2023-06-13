@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Task < ApplicationRecord
-  belongs_to :user
+  belongs_to :member
   belongs_to :category
 
   validates :title, :description, presence: true, length: { minimum: 5, message: '%<value>s Not enough length' }

@@ -19,7 +19,7 @@ Devise.setup do |config|
   # ==> Controller configuration
   # Configure the parent class to the devise controllers.
   # config.parent_controller = 'DeviseController'
-
+   config.scoped_views= true
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
@@ -157,8 +157,9 @@ Devise.setup do |config|
   # initial account confirmation) to be applied. Requires additional unconfirmed_email
   # db field (see migrations). Until confirmed, new email is stored in
   # unconfirmed_email column, and copied to email column on successful confirmation.
-  config.reconfirmable = true
-
+  # config.reconfirmable = true
+  # config.authentication_keys= [:email]
+  # config.router_name= :user
   # Defines which key will be used when confirming an account
   # config.confirmation_keys = [:email]
 
@@ -167,8 +168,10 @@ Devise.setup do |config|
   # config.remember_for = 2.weeks
 
   # Invalidates all the remember me tokens when the user signs out.
-  config.expire_all_remember_me_on_sign_out = true
-
+  # config.expire_all_remember_me_on_sign_out = true
+  # config.authentication_keys= [:email]
+  # config.router_name= :admin_user
+  
   # If true, extends the user's remember period when remembered via cookie.
   # config.extend_remember_period = false
 

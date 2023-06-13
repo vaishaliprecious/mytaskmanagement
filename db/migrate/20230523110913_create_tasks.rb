@@ -7,7 +7,7 @@ class CreateTasks < ActiveRecord::Migration[7.0]
       t.text :description
       t.string :status, default: 'In_complete'
       t.string :category
-      t.belongs_to :user
+      t.belongs_to :member
       t.belongs_to :category
 
       t.timestamps

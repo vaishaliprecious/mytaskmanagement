@@ -1,13 +1,13 @@
-<% if user_signed_in? %>
-	<div> Welcome <%= current_user.email %></div>
-	<%= button_to "sign out" , destroy_user_session_path, method: :delete %>
+<% if current_member %>
+<div> Welcome <%= current_member.email %></div>
+	<%= button_to "sign out" , destroy_member_session_path, method: :delete %>
 	<h1><%= link_to('Back',"/tasks") %></h1>
   <%= form_with  model: @task do |form| %>
    <% if @task.status=='Complete'%>
     <%= form.hidden_field :approve, value: :approve%>
     <%= form.submit "Approve" %>
    <%else %>
-    <%= form.select :assigned_task, User.pluck(:firstname, :id) %><br><br>
+    <%= form.select :assigned_task, current_member.users.pluck(:firstname, :id) %><br><br>
     <%= form.submit "Assign" %>
    <%end%>
   <%end%>

@@ -1,16 +1,18 @@
 # frozen_string_literal: true
 
 class TasksController < ApplicationController
-  before_action :authenticate_user!
+  before_action :auth_user
   before_action :set_task, only: %i[edit show update destroy]
 
   def index
-    @tasks = Task.where(assigned_task: nil).or(Task.where(status: 'Complete')) if current_user.admin?
-    @tasks = Task.where(assigned_task: current_user.id) unless current_user.admin?
+    # byebug
+    @tasks = current_member.tasks if current_member
+    @tasks = Task.where(assigned_task: current_user.id) if current_user
   end
 
   def show
     @cat = params[:category_id]
+    authorize! :read , @task
   end
 
   def new
@@ -29,10 +31,11 @@ class TasksController < ApplicationController
     end
   end
 
-  def edit; end
+  def edit
+  end
 
   def update
-    if @task.update(task_params)
+    if @task.update(update_params)
       @task.update(approve: :not_approve) if @task.status == 'Completed' && !@task.approve?
       redirect_to '/tasks'
     else
@@ -47,14 +50,24 @@ class TasksController < ApplicationController
     redirect_to tasks_path
   end
 
+  
+  private
+
   def set_task
     @task = Task.find(params[:id])
   end
 
-  private
-
   def task_params
-    params.require(:task).permit(:id, :title, :description, :status, :category_id, :image, :assigned_task,
-                                 :approve).merge!(user: current_user)
+    params.require(:task).permit(:id, :title, :description, :status, :category_id, :image,).merge!(member: current_member)
+  end
+
+  def update_params
+    params.require(:task).permit(:status, :approve,:assigned_task,)
+  end
+
+  def auth_user
+    unless  current_user ||  current_member
+      authenticate_user!
+    end
   end
 end
