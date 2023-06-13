@@ -9,6 +9,7 @@
   <div style="text-align:center;">
   <% if current_member%>
   <h1><%= link_to "create user" , new_user_path%></h1>
+  <h1><%= link_to 'users', users_path%></h1>
   <% end%>
   <% if can? :manage, Task %>
   <h1><%= link_to "NEW", new_task_path %></h1>
@@ -31,7 +32,9 @@
       <% if current_user %>
        <th>action</th>
       <%end%>
-   </tr>        
+   </tr>  
+  
+         
    <% @tasks.each do |x| %>
       <tr> 
        <td><%=image_tag x.image, size:"200"%></td>
@@ -47,8 +50,6 @@
        <% if current_user %>
        <td><%= button_to "Complete", task_path(x), method: :put, params: {task:{status: "Complete"}}%></td>
        <%end%>
-       <% if current_member%>
-       <td><%= x.assigned_task%></td>
-       <%end%>
-      </tr> 
+    </tr> 
    <%end%>
+   

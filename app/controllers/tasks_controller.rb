@@ -66,6 +66,7 @@ class TasksController < ApplicationController
   end
 
   def auth_user
+    
     unless  current_user ||  current_member
       authenticate_user!
     end

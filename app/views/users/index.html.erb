@@ -1,0 +1,16 @@
+<div> Welcome <%=current_member.email %></div>
+  <%= button_to "sign out" , destroy_member_session_path, method: :delete %> 
+   <table border = '1',align ='center'>
+   <tr>
+      <th>user</th>
+      <th>delete</th>
+    </tr>
+    <% @users.each do |x| %>
+      <tr> 
+       <%#byebug%>
+       <td><%= x.firstname %></td>
+       <td><%=  link_to 'delete user',deleted_user_path(x), data: { 'turbo-method': :delete, 'turbo-confirm': 'Are you sure?' }%></td>
+        
+
+     </tr>
+    <%end%>

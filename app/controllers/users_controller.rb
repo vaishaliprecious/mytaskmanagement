@@ -1,4 +1,7 @@
 class UsersController < ApplicationController
+  def index
+    @users = current_member.users
+  end
   def new
     @user=User.new
   end
@@ -13,12 +16,14 @@ class UsersController < ApplicationController
     end
   end
 
-  def destroy
-    @user=User.find(params[:id])
-    return unless @user.destroy
-    redirect_to tasks_path
-  end
+  def deleted
     
+     @user = User.find(params[:id])
+    if @user.destroy
+      flash[:notice] = 'user deleted'
+      redirect_to users_path
+    end
+end 
       
   private
 

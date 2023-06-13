@@ -132,8 +132,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_12_110416) do
     t.string "firstname"
     t.string "lastname"
     t.integer "member_id"
-    t.integer "admin_user_id"
-    t.index ["admin_user_id"], name: "index_users_on_admin_user_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["member_id"], name: "index_users_on_member_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

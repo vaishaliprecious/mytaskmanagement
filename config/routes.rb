@@ -4,10 +4,18 @@ require 'sidekiq/web'
 require 'sidekiq/cron/web'
 
 Rails.application.routes.draw do
-  resources :users, only: %i[new create]
+  
+  resources :users, only: %i[index new create ] do 
+  #delete 'users/:id', to: 'users#destroy'
+  member do
+    delete :deleted 
+  end
+end
+
   devise_for :members
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
+
   devise_for :users
 
   # devise_scope :user do
@@ -31,5 +39,8 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
 
   root 'tasks#index'
+  #delete 'users/:id', to: 'users#destroy'
+  
+
   resources :tasks
 end

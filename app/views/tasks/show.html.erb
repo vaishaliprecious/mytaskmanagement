@@ -8,7 +8,9 @@
     <%= form.submit "Approve" %>
    <%else %>
     <%= form.select :assigned_task, current_member.users.pluck(:firstname, :id) %><br><br>
-    <%= form.submit "Assign" %>
+     
+   <%= form.submit "Assign" %>
    <%end%>
   <%end%>
+
 <%end%>
