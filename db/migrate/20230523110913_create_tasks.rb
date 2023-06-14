@@ -9,6 +9,7 @@ class CreateTasks < ActiveRecord::Migration[7.0]
       t.string :category
       t.belongs_to :member
       t.belongs_to :category
+      
 
       t.timestamps
     end

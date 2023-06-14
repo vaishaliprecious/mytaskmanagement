@@ -7,8 +7,10 @@
     <%= form.hidden_field :approve, value: :approve%>
     <%= form.submit "Approve" %>
    <%else %>
-    <%= form.select :assigned_task, current_member.users.pluck(:firstname, :id) %><br><br>
-     
+    
+    <%= form.select :user_id, current_member.users.pluck(:firstname, :id) %><br><br>
+    
+
    <%= form.submit "Assign" %>
    <%end%>
   <%end%>

@@ -6,7 +6,7 @@ ActiveAdmin.register Task do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  permit_params :title, :description, :status, :user_id, :category_id, :approve
+  permit_params :title, :description, :status, :user_id, :category_id, :approve, :member_id
   #
   # or
   #
@@ -38,7 +38,7 @@ ActiveAdmin.register Task do
       f.input :title
       f.input :description
       f.input :status
-      f.input :assigned_task, as: :select, collection: User.all.collect {|user| [user.email, user.id] }
+      f.input :user_id, as: :select, collection: User.all.collect {|user| [user.email, user.id] }
       f.input :approve
     end
     f.actions

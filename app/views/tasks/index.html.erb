@@ -37,7 +37,9 @@
          
    <% @tasks.each do |x| %>
       <tr> 
-       <td><%=image_tag x.image, size:"200"%></td>
+      
+      <td><%=image_tag  x.image, size:"200"%></td>
+
        <td><%= x.title %></td>
        <td><%= x.description %></td>
        <td><%= x.category.name %></td>
