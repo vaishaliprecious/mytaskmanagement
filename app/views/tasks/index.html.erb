@@ -36,7 +36,7 @@
   
          
    <% @tasks.each do |x| %>
-      <tr> 
+    <tr> 
       
       <td><%=image_tag  x.image, size:"200"%></td>
 
@@ -49,9 +49,11 @@
         <td><%= x.approve? ? "" : link_to("Show", x) %></td>
        <% end %>
        <td><%= x.approve? ? "Approve" : x.status%></td>
+      <td><%= x.user_id? ? User.find(x.user_id).firstname : ""%></td>
        <% if current_user %>
        <td><%= button_to "Complete", task_path(x), method: :put, params: {task:{status: "Complete"}}%></td>
        <%end%>
+       
     </tr> 
    <%end%>
    

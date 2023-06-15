@@ -35,7 +35,6 @@ class TasksController < ApplicationController
   end
 
   def update
-    
     if @task.update(update_params)
     @task.update(approve: :not_approve) if @task.status == 'Completed' && !@task.approve?
     redirect_to '/tasks'
